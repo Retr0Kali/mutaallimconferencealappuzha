@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@400;700&display=swap');
+@tailwind base;@tailwind components;@tailwind utilities;
+body{font-family:'Manjari',sans-serif;background:#022c22;color:#faf6e9}
+.geo{background-image:radial-gradient(circle at 50% 50%,rgba(212,175,55,.12) 0 2px,transparent 3px),conic-gradient(from 45deg at 50% 50%,transparent 0 25%,rgba(212,175,55,.06) 0 50%,transparent 0 75%,rgba(212,175,55,.06) 0);background-size:48px 48px;animation:drift 40s linear infinite}
+@keyframes drift{to{background-position:480px 480px}}
+.inp{width:100%;padding:.8rem 1rem;border-radius:.75rem;background:#064e3b;border:1px solid rgba(212,175,55,.35);color:#faf6e9}
