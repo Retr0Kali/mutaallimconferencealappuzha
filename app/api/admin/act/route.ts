@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"; import { srv, requireAdmin } from "@/lib/db";
 const J = (o: any, s = 200) => NextResponse.json(o, { status: s });
-const PF = ["full_name","age","mobile","whatsapp","address","zone","institution","course","level","teacher","attend_type","companions","requirements"];
+const PF = ["full_name","mobile","whatsapp","division","sector","unit","institution","qualification"];
 const pick = (o: any, k: string[]) => Object.fromEntries(k.filter(x => x in o).map(x => [x, o[x]]));
 export async function POST(req: Request) {
   if (!(await requireAdmin())) return J({ error: "Unauthorized" }, 401);
