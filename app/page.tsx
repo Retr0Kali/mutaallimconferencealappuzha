@@ -7,7 +7,7 @@ export default async function Home() {
     db.from("programmes").select("*").order("sort"), db.from("posters").select("*").order("sort")]);
   return <main>
     <section className="geo min-h-screen flex flex-col items-center justify-center text-center px-5 py-16 gap-5">
-      <div className="w-16 h-16 rounded-full border-2 border-gold grid place-items-center text-gold text-xs">LOGO</div>
+      <img src="/logo.png" alt="Samastha Centenary" width={120} height={129} className="w-24 sm:w-28 h-auto rounded-2xl shadow-lg" />
       <p className="tracking-[.3em] text-gold text-xs">{ev?.subtitle}</p>
       <p className="text-sm opacity-80">SSF ALAPPUZHA DISTRICT COMMITTEE</p>
       <h1 className="text-4xl sm:text-6xl font-bold leading-tight">{ev?.title}</h1>
