@@ -1,4 +1,4 @@
-import Link from "next/link"; import { pub } from "@/lib/db"; import Countdown from "@/components/Countdown"; import Gallery from "@/components/Gallery"; import Sessions from "@/components/Sessions";
+import Link from "next/link"; import { pub } from "@/lib/db"; import Countdown from "@/components/Countdown"; import Gallery from "@/components/Gallery"; import Sessions from "@/components/Sessions"; import Memorial from "@/components/Memorial";
 export const revalidate = 60;
 export default async function Home() {
   const db = pub();
@@ -24,6 +24,7 @@ export default async function Home() {
       <Sessions items={prog ?? []} /></section>
     {!!posters?.length && <section className="px-5 py-14 max-w-5xl mx-auto"><h2 className="text-2xl font-bold text-gold mb-6">പോസ്റ്ററുകൾ</h2>
       <Gallery posters={posters} /></section>}
+    <Memorial />
     <footer className="text-center py-10 opacity-70 text-sm">SSF ആലപ്പുഴ ജില്ലാ കമ്മിറ്റി · <Link href="/admin">Admin</Link></footer>
   </main>;
 }
