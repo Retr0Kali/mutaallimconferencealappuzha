@@ -17,8 +17,6 @@ export default function Memorial() {
       {m.intro.map((t, i) => <p key={i}>{t}</p>)}
       {open && <>
         {m.more.map((t, i) => <p key={i}>{t}</p>)}
-        <p className="font-bold text-gold">{m.lessonIntro}</p>
-        <ul className="space-y-2 border-l-2 border-gold/50 pl-4">{m.lessons.map((t, i) => <li key={i}>{t}</li>)}</ul>
         <div className="text-center pt-4 space-y-1 text-gold">{m.dua.map((t, i) => <p key={i}>{t}</p>)}</div>
       </>}
     </div>
