@@ -6,11 +6,18 @@ export async function POST(req: Request) {
   if (!(await requireAdmin())) return J({ error: "Unauthorized" }, 401);
   const db = srv();
   if ((req.headers.get("content-type") || "").includes("multipart")) {
-    const f = (await req.formData()).get("file") as File | null;
+    const fd = await req.formData(); const f = fd.get("file") as File | null; const pid = Number(fd.get("programme_id") || 0);
     if (!f || !f.type.startsWith("image/") || f.size > 4e6) return J({ error: "Image under 4MB only" }, 400);
     const name = `${Date.now()}-${f.name.replace(/[^\w.-]/g, "_")}`;
     const up = await db.storage.from("posters").upload(name, Buffer.from(await f.arrayBuffer()), { contentType: f.type });
     if (up.error) return J({ error: up.error.message }, 500);
+    if (pid) {
+      const url = db.storage.from("posters").getPublicUrl(name).data.publicUrl;
+      const { data: old } = await db.from("programmes").select("image_url").eq("id", pid).single();
+      const r = await db.from("programmes").update({ image_url: url }).eq("id", pid);
+      if (!r.error && old?.image_url) await db.storage.from("posters").remove([decodeURIComponent(old.image_url.split("/").pop()!)]);
+      return r.error ? J({ error: r.error.message }, 500) : J({ ok: 1 });
+    }
     const { data: last } = await db.from("posters").select("sort").order("sort", { ascending: false }).limit(1);
     const { error } = await db.from("posters").insert({ url: db.storage.from("posters").getPublicUrl(name).data.publicUrl, sort: (last?.[0]?.sort ?? 0) + 1 });
     return error ? J({ error: error.message }, 500) : J({ ok: 1 });
