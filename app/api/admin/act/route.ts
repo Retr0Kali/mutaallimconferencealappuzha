@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     case "p.delete": r = await db.from("participants").delete().eq("id", b.id); break;
     case "event": r = await db.from("event").update(pick(b.d, ["title","subtitle","tagline","starts_at","venue"])).eq("id", 1); break;
     case "c.save": if (!["benefits","programmes"].includes(b.t)) return J({ error: "bad" }, 400);
-      r = b.id ? await db.from(b.t).update(pick(b.d, ["icon","title","body","sort"])).eq("id", b.id) : await db.from(b.t).insert(pick(b.d, ["icon","title","body","sort"])); break;
+      r = b.id ? await db.from(b.t).update(pick(b.d, ["icon","title","body","sort","speaker","topic"])).eq("id", b.id) : await db.from(b.t).insert(pick(b.d, ["icon","title","body","sort","speaker","topic"])); break;
     case "c.delete": if (!["benefits","programmes"].includes(b.t)) return J({ error: "bad" }, 400); r = await db.from(b.t).delete().eq("id", b.id); break;
     case "poster.delete": { const { data: p } = await db.from("posters").select("url").eq("id", b.id).single();
       if (p) await db.storage.from("posters").remove([decodeURIComponent(p.url.split("/").pop()!)]); r = await db.from("posters").delete().eq("id", b.id); break; }
